@@ -10,9 +10,10 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// const uri = process.env.ATLAS_URI;
+const uri = process.env.ATLAS_URI;
 
-mongoose.connect("mongodb+srv://dibas:Scientific@cluster0.x9tgk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {useNewUrlParser:true, useCreateIndex:true,useUnifiedTopology:true}
+
+mongoose.connect(uri, {useNewUrlParser:true, useCreateIndex:true}
 );
 const connection = mongoose.connection;
 connection.once('open',()=>{

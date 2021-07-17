@@ -22,10 +22,7 @@ export default class CreateExercise extends Component {
     }
 
     componentDidMount(){
-        this.setState({
-            users : ['test user'],
-            username : 'test user'
-        });
+        
 
         axios.get('http://localhost:5000/users/')
           .then(response => {
@@ -34,9 +31,27 @@ export default class CreateExercise extends Component {
                   users : response.data.map(user=> user.username),
                   username : response.data[0].username
                 });
+                else {
+                    this.setState({
+                        users : ['test user'],
+                        username : 'test user'
+                    });
+                }
             })
           .catch(err => console.error(err))
-        
+          
+            //get the user
+          axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
+          .then(response => {
+            //   console.log(response);
+                this.setState({
+                  username : response.data.username,
+                  description : response.data.description,
+                  duration : response.data.duration,
+                  date : new Date(response.data.date),
+                })
+            })
+          .catch(err => console.error(err))
     }
 
     onChangeUsername(e){
@@ -72,7 +87,7 @@ export default class CreateExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('http://localhost:5000/exercises/add',exercise)
+        axios.post('http://localhost:5000/exercises/update/'+this.props.match.params.id,exercise)
           .then(response => {
               console.log("Response: " +response.data)
 
