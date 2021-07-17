@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 import axios from 'axios';
+const BACKEND_URI = 'https://mern-exercises-backend.herokuapp.com';
 
 const Exercise = props =>{
     return (
@@ -41,7 +42,7 @@ export default class ExercisesList extends Component {
 
 
     componentDidMount() {
-         axios.get('http://localhost:5000/exercises/')
+         axios.get(BACKEND_URI+'/exercises/')
          .then(response => {
             // console.log(response.data)
             // console.log(this.exercises);
@@ -54,7 +55,7 @@ export default class ExercisesList extends Component {
 
     deleteExercise(id){
         // console.log(id);
-        axios.delete("http://localhost:5000/exercises/"+id)
+        axios.delete(BACKEND_URI+"/exercises/"+id)
           .then(res => {
             console.log(res.data);
             this.setState({exercises : this.state.exercises.filter(

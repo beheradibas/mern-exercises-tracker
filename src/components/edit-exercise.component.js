@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
+const BACKEND_URI = 'https://mern-exercises-backend.herokuapp.com';
+
 
 export default class CreateExercise extends Component {
     constructor(props){
@@ -24,12 +26,12 @@ export default class CreateExercise extends Component {
     componentDidMount(){
         
 
-        axios.get('http://localhost:5000/users/')
+        axios.get(BACKEND_URI+'/users/')
           .then(response => {
             //   console.table(response.data);
               if(response.data.length !== 0) this.setState({
                   users : response.data.map(user=> user.username),
-                  username : response.data[0].username
+                //   username : response.data[0].username
                 });
                 else {
                     this.setState({
@@ -41,7 +43,7 @@ export default class CreateExercise extends Component {
           .catch(err => console.error(err))
           
             //get the user
-          axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
+          axios.get(BACKEND_URI+'/exercises/'+this.props.match.params.id)
           .then(response => {
             //   console.log(response);
                 this.setState({
@@ -87,7 +89,7 @@ export default class CreateExercise extends Component {
 
         console.log(exercise);
 
-        axios.post('http://localhost:5000/exercises/update/'+this.props.match.params.id,exercise)
+        axios.post(BACKEND_URI+'/exercises/update/'+this.props.match.params.id,exercise)
           .then(response => {
               console.log("Response: " +response.data)
 

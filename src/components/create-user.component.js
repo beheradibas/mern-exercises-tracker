@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+const BACKEND_URI = 'https://mern-exercises-backend.herokuapp.com';
+
 
 export default class CreateUser extends Component {
     constructor(props){
@@ -25,7 +27,7 @@ export default class CreateUser extends Component {
         }
 
         console.log(user);
-        axios.post('http://localhost:5000/users/add',user)
+        axios.post(BACKEND_URI+'/users/add',user)
           .then(response => {
               console.log(response.data);
               this.setState({username:''});
